@@ -1,0 +1,723 @@
+{
+ "scenarioId": "traffic-spike-sale",
+ "recordedAt": "2026-11-22T20:49Z",
+ "provider": "Azure OpenAI (API key)",
+ "model": "gpt-5-mini",
+ "scripted": false,
+ "passed": true,
+ "events": [
+  {
+   "t": 0.0,
+   "event": {
+    "type": "agent_started",
+    "model": "gpt-5-mini",
+    "promptVersion": "2026-11-22.2"
+   }
+  },
+  {
+   "t": 1.173,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 1795,
+    "outputTokens": 20,
+    "costUsd": 0.00049
+   }
+  },
+  {
+   "t": 1.173,
+   "event": {
+    "type": "tool_call",
+    "step": 1,
+    "id": "call_6ZzATnOaGAcRshXSOPQ1an2I",
+    "name": "getServiceHealth",
+    "args": {}
+   }
+  },
+  {
+   "t": 1.174,
+   "event": {
+    "type": "tool_result",
+    "step": 1,
+    "id": "call_6ZzATnOaGAcRshXSOPQ1an2I",
+    "name": "getServiceHealth",
+    "ok": true,
+    "chars": 2148,
+    "output": "{\"asOf\":\"2026-11-27T18:00Z\",\"callGraph\":\"checkout-web -> checkout-api -> {pricing-service, inventory-service, payment-service -> Fabrikam Payments (external), order-service}\",\"services\":[{\"service\":\"checkout-web\",\"role\":\"Storefront backend-for-frontend; calls checkout-api\",\"requests_per_min\":{\"baseline\":898,\"last5min\":3330},\"error_rate\":{\"baseline\":0.0018,\"last5min\":0.002},\"latency_p95_ms\":{\"baseline\":181,\"last5min\":211},\"status\":\"healthy\"},{\"service\":\"checkout-api\",\"role\":\"Checkout orchestration: cart pricing, reservation, payment, order creation\",\"requests_per_min\":{\"baseline\":849,\"last5min\":3031},\"error_rate\":{\"baseline\":0.0031,\"last5min\":0.0034},\"latency_p95_ms\":{\"baseline\":212,\"last5min\":247},\"status\":\"healthy\"},{\"service\":\"pricing-service\",\"role\":\"Returns prices and discounts for SKUs\",\"requests_per_min\":{\"baseline\":2602,\"last5min\":9646},\"error_rate\":{\"baseline\":0.001,\"last5min\":0.0009},\"latency_p95_ms\":{\"baseline\":34.64,\"last5min\":36.66},\"status\":\"healthy\"},{\"service\":\"inventory-service\",\"role\":\"Reserves stock for items in a cart\",\"requests_per_min\":{\"baseline\":1712,\"last5min\":5774},\"error_rate\":{\"baseline\":0.0009,\"last5min\":0.0011},\"latency_p95_ms\":{\"baseline\":44.29,\"last5min\":45.87},\"status\":\"healthy\"},{\"service\":\"payment-service\",\"role\":\"Charges cards through Fabrikam Payments (external provider)\",\"requests_per_min\":{\"baseline\":421,\"last5min\":1504},\"error_rate\":{\"baseline\":0.004,\"last5min\":0.0031},\"latency_p95_ms\":{\"baseline\":656,\"last5min\":641},\"status\":\"healthy\"},{\"service\":\"order-service\",\"role\":\"Creates orders and order history; also logs support tickets\",\"requests_per_min\":{\"baseline\":402,\"last5min\":1488},\"error_rate\":{\"baseline\":0.0021,\"last5min\":0.0019},\"latency_p95_ms\":{\"baseline\":120,\"last5min\":122},\"status\":\"healthy\"}],\"otherMetricsAvailable\":{\"checkout-api\":[\"checkout_success_rate\",\"pricing_calls_per_request\",\"instance_count\"],\"payment-service\":[\"provider_requests_per_min\",\"provider_error_rate\",\"duplicate_charges_per_min\",\"auth_failures_per_min\",\"charges_missing_idempotency_key_per_min\"]},\"note\":\"baseline = mean of the first hour of the 2-hour window; last5min = mean of the last 5 minutes\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 2.288,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 4184,
+    "outputTokens": 54,
+    "costUsd": 0.00115
+   }
+  },
+  {
+   "t": 2.288,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_wWjoFmb05iWQjxWy0y4sTiNS",
+    "name": "queryMetrics",
+    "args": {
+     "service": "checkout-api",
+     "metric": "requests_per_min",
+     "minutes": 120
+    }
+   }
+  },
+  {
+   "t": 2.289,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_wWjoFmb05iWQjxWy0y4sTiNS",
+    "name": "queryMetrics",
+    "ok": true,
+    "chars": 1168,
+    "output": "{\"service\":\"checkout-api\",\"metric\":\"requests_per_min\",\"unit\":\"req/min\",\"baseline\":849,\"baselineStd\":32.55,\"latest\":2989,\"changePct\":252,\"changeDetected\":{\"startedAt\":\"2026-11-27T17:31Z\",\"minutesAgo\":29,\"direction\":\"up\"},\"bucketMinutes\":5,\"buckets\":[{\"t\":\"2026-11-27T16:01Z\",\"value\":838},{\"t\":\"2026-11-27T16:06Z\",\"value\":832},{\"t\":\"2026-11-27T16:11Z\",\"value\":854},{\"t\":\"2026-11-27T16:16Z\",\"value\":857},{\"t\":\"2026-11-27T16:21Z\",\"value\":851},{\"t\":\"2026-11-27T16:26Z\",\"value\":820},{\"t\":\"2026-11-27T16:31Z\",\"value\":853},{\"t\":\"2026-11-27T16:36Z\",\"value\":834},{\"t\":\"2026-11-27T16:41Z\",\"value\":849},{\"t\":\"2026-11-27T16:46Z\",\"value\":873},{\"t\":\"2026-11-27T16:51Z\",\"value\":867},{\"t\":\"2026-11-27T16:56Z\",\"value\":860},{\"t\":\"2026-11-27T17:01Z\",\"value\":875},{\"t\":\"2026-11-27T17:06Z\",\"value\":842},{\"t\":\"2026-11-27T17:11Z\",\"value\":828},{\"t\":\"2026-11-27T17:16Z\",\"value\":863},{\"t\":\"2026-11-27T17:21Z\",\"value\":855},{\"t\":\"2026-11-27T17:26Z\",\"value\":855},{\"t\":\"2026-11-27T17:31Z\",\"value\":1755},{\"t\":\"2026-11-27T17:36Z\",\"value\":2987},{\"t\":\"2026-11-27T17:41Z\",\"value\":3034},{\"t\":\"2026-11-27T17:46Z\",\"value\":3163},{\"t\":\"2026-11-27T17:51Z\",\"value\":3014},{\"t\":\"2026-11-27T17:56Z\",\"value\":3031}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 4.66,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 7126,
+    "outputTokens": 83,
+    "costUsd": 0.00195
+   }
+  },
+  {
+   "t": 4.66,
+   "event": {
+    "type": "tool_call",
+    "step": 3,
+    "id": "call_WnggHknEdl4k6V4wqAKhvGRj",
+    "name": "listDeploys",
+    "args": {
+     "service": "checkout-api",
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 4.66,
+   "event": {
+    "type": "tool_result",
+    "step": 3,
+    "id": "call_WnggHknEdl4k6V4wqAKhvGRj",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 60,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 10129,
+    "outputTokens": 208,
+    "costUsd": 0.00295
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_FxkRbS4RicAdFPz4KSpP814w",
+    "name": "listDeploys",
+    "args": {
+     "service": "pricing-service",
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_FxkRbS4RicAdFPz4KSpP814w",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 60,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_59LVR8y1X7hJyhya6V0LdSPb",
+    "name": "listDeploys",
+    "args": {
+     "service": "inventory-service",
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_59LVR8y1X7hJyhya6V0LdSPb",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 60,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_8wsPWTQpB03haogqcZFeq3ib",
+    "name": "listDeploys",
+    "args": {
+     "service": "payment-service",
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_8wsPWTQpB03haogqcZFeq3ib",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 60,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_HDbEoW3TtkSlcnqsaG6F1Vm9",
+    "name": "listDeploys",
+    "args": {
+     "service": "order-service",
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_HDbEoW3TtkSlcnqsaG6F1Vm9",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 261,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[{\"deployId\":\"d-4790\",\"service\":\"order-service\",\"version\":\"v3.9.1\",\"deployedAt\":\"2026-11-27T12:00Z\",\"minutesAgo\":360,\"author\":\"mgarcia\",\"summary\":\"Add CSV export for order history\",\"status\":\"succeeded\"}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_xmACYFXhBNPAt4DRQZjpAzoM",
+    "name": "listDeploys",
+    "args": {
+     "service": "checkout-web",
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 8.874,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_xmACYFXhBNPAt4DRQZjpAzoM",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 60,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 11.876,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 13498,
+    "outputTokens": 329,
+    "costUsd": 0.00403
+   }
+  },
+  {
+   "t": 11.876,
+   "event": {
+    "type": "tool_call",
+    "step": 5,
+    "id": "call_mjWYd1o9t6vqjDvH8xcR2MHH",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"POST /checkout\" OR \"POST /api/checkout\" OR \"checkout.create\"",
+     "service": "checkout-api",
+     "level": "INFO",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 11.877,
+   "event": {
+    "type": "tool_result",
+    "step": 5,
+    "id": "call_mjWYd1o9t6vqjDvH8xcR2MHH",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 217,
+    "output": "{\"query\":\"\\\"POST /checkout\\\" OR \\\"POST /api/checkout\\\" OR \\\"checkout.create\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 15.357,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 16984,
+    "outputTokens": 365,
+    "costUsd": 0.00498
+   }
+  },
+  {
+   "t": 15.357,
+   "event": {
+    "type": "tool_call",
+    "step": 6,
+    "id": "call_XkCxtQyJf71revalRgUSXOhe",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"checkout\"",
+     "service": "checkout-api",
+     "level": "INFO",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 15.358,
+   "event": {
+    "type": "tool_result",
+    "step": 6,
+    "id": "call_XkCxtQyJf71revalRgUSXOhe",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 162,
+    "output": "{\"query\":\"\\\"checkout\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 19.893,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 20557,
+    "outputTokens": 404,
+    "costUsd": 0.00595
+   }
+  },
+  {
+   "t": 19.893,
+   "event": {
+    "type": "tool_call",
+    "step": 7,
+    "id": "call_DnpMNOCkMNPJHbmHstmVWeY5",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"POST\" \"200\"",
+     "service": "checkout-api",
+     "level": "INFO",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 19.893,
+   "event": {
+    "type": "tool_result",
+    "step": 7,
+    "id": "call_DnpMNOCkMNPJHbmHstmVWeY5",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 166,
+    "output": "{\"query\":\"\\\"POST\\\" \\\"200\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 23.893,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 24223,
+    "outputTokens": 433,
+    "costUsd": 0.00692
+   }
+  },
+  {
+   "t": 23.893,
+   "event": {
+    "type": "tool_call",
+    "step": 8,
+    "id": "call_Sf4mBwXEbGXxbNiTo8RdSL51",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"requests_per_min\"",
+     "minutes": 30,
+     "limit": 10
+    }
+   }
+  },
+  {
+   "t": 23.893,
+   "event": {
+    "type": "tool_result",
+    "step": 8,
+    "id": "call_Sf4mBwXEbGXxbNiTo8RdSL51",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 170,
+    "output": "{\"query\":\"\\\"requests_per_min\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 29.227,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 27971,
+    "outputTokens": 536,
+    "costUsd": 0.00806
+   }
+  },
+  {
+   "t": 29.227,
+   "event": {
+    "type": "tool_call",
+    "step": 9,
+    "id": "call_vcT8kUig4ZivJuOnbPkrmxWJ",
+    "name": "getTraces",
+    "args": {
+     "service": "checkout-web",
+     "minDurationMs": 0,
+     "status": null,
+     "limit": 3
+    }
+   }
+  },
+  {
+   "t": 29.227,
+   "event": {
+    "type": "tool_result",
+    "step": 9,
+    "id": "call_vcT8kUig4ZivJuOnbPkrmxWJ",
+    "name": "getTraces",
+    "ok": true,
+    "chars": 2111,
+    "output": "{\"service\":\"checkout-web\",\"matched\":24,\"traces\":[{\"traceId\":\"tr_0df6ae2762\",\"t\":\"2026-11-27T17:07Z\",\"root\":\"checkout-web POST /checkout/submit\",\"durationMs\":424,\"status\":\"ok\",\"spans\":[{\"service\":\"checkout-web\",\"operation\":\"POST /checkout/submit\",\"durationMs\":14,\"status\":\"ok\"},{\"service\":\"checkout-api\",\"operation\":\"POST /checkout/complete\",\"durationMs\":22,\"status\":\"ok\"},{\"service\":\"pricing-service\",\"operation\":\"POST /prices/batch\",\"durationMs\":18,\"status\":\"ok\"},{\"service\":\"inventory-service\",\"operation\":\"POST /reservations\",\"durationMs\":18,\"status\":\"ok\"},{\"service\":\"payment-service\",\"operation\":\"POST /charges\",\"durationMs\":306,\"status\":\"ok\"},{\"service\":\"order-service\",\"operation\":\"POST /orders\",\"durationMs\":39,\"status\":\"ok\"}]},{\"traceId\":\"tr_c0283a3dc2\",\"t\":\"2026-11-27T17:14Z\",\"root\":\"checkout-web POST /checkout/submit\",\"durationMs\":424,\"status\":\"ok\",\"spans\":[{\"service\":\"checkout-web\",\"operation\":\"POST /checkout/submit\",\"durationMs\":10,\"status\":\"ok\"},{\"service\":\"checkout-api\",\"operation\":\"POST /checkout/complete\",\"durationMs\":21,\"status\":\"ok\"},{\"service\":\"pricing-service\",\"operation\":\"POST /prices/batch\",\"durationMs\":17,\"status\":\"ok\"},{\"service\":\"inventory-service\",\"operation\":\"POST /reservations\",\"durationMs\":17,\"status\":\"ok\"},{\"service\":\"payment-service\",\"operation\":\"POST /charges\",\"durationMs\":315,\"status\":\"ok\"},{\"service\":\"order-service\",\"operation\":\"POST /orders\",\"durationMs\":37,\"status\":\"ok\"}]},{\"traceId\":\"tr_dcad140fcd\",\"t\":\"2026-11-27T16:02Z\",\"root\":\"checkout-web POST /checkout/submit\",\"durationMs\":415,\"status\":\"ok\",\"spans\":[{\"service\":\"checkout-web\",\"operation\":\"POST /checkout/submit\",\"durationMs\":15,\"status\":\"ok\"},{\"service\":\"checkout-api\",\"operation\":\"POST /checkout/complete\",\"durationMs\":16,\"status\":\"ok\"},{\"service\":\"pricing-service\",\"operation\":\"POST /prices/batch\",\"durationMs\":11,\"status\":\"ok\"},{\"service\":\"inventory-service\",\"operation\":\"POST /reservations\",\"durationMs\":21,\"status\":\"ok\"},{\"service\":\"payment-service\",\"operation\":\"POST /charges\",\"durationMs\":292,\"status\":\"ok\"},{\"service\":\"order-service\",\"operation\":\"POST /orders\",\"durationMs\":47,\"status\":\"ok\"}]}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 33.419,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 32310,
+    "outputTokens": 647,
+    "costUsd": 0.00937
+   }
+  },
+  {
+   "t": 33.419,
+   "event": {
+    "type": "tool_call",
+    "step": 10,
+    "id": "call_bAiHvDKXaUOFFGeyidlBhQKh",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"POST /checkout\" \"200\"",
+     "service": "checkout-web",
+     "level": "INFO",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 33.419,
+   "event": {
+    "type": "tool_result",
+    "step": 10,
+    "id": "call_bAiHvDKXaUOFFGeyidlBhQKh",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 176,
+    "output": "{\"query\":\"\\\"POST /checkout\\\" \\\"200\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 38.153,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 36746,
+    "outputTokens": 693,
+    "costUsd": 0.01057
+   }
+  },
+  {
+   "t": 38.153,
+   "event": {
+    "type": "tool_call",
+    "step": 11,
+    "id": "call_lMXUiO84aCa3l0L0vCsTXzV8",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"GET /products\" OR \"browse\" OR \"search\"",
+     "service": "checkout-web",
+     "level": "INFO",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 38.154,
+   "event": {
+    "type": "tool_result",
+    "step": 11,
+    "id": "call_lMXUiO84aCa3l0L0vCsTXzV8",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 195,
+    "output": "{\"query\":\"\\\"GET /products\\\" OR \\\"browse\\\" OR \\\"search\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 43.449,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 41289,
+    "outputTokens": 712,
+    "costUsd": 0.01175
+   }
+  },
+  {
+   "t": 43.449,
+   "event": {
+    "type": "tool_call",
+    "step": 12,
+    "id": "call_hCFdYOWA1wixYWZZ1y4TdeXh",
+    "name": "getServiceConfig",
+    "args": {
+     "service": "checkout-api"
+    }
+   }
+  },
+  {
+   "t": 43.449,
+   "event": {
+    "type": "tool_result",
+    "step": 12,
+    "id": "call_hCFdYOWA1wixYWZZ1y4TdeXh",
+    "name": "getServiceConfig",
+    "ok": true,
+    "chars": 130,
+    "output": "{\"service\":\"checkout-api\",\"config\":{\"autoscale\":{\"min\":6,\"max\":20,\"targetCpu\":0.6},\"timeouts\":{\"pricingMs\":800,\"paymentMs\":5000}}}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 49.814,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 45903,
+    "outputTokens": 828,
+    "costUsd": 0.01313
+   }
+  },
+  {
+   "t": 49.814,
+   "event": {
+    "type": "tool_call",
+    "step": 13,
+    "id": "call_eAlD3G2r2fxADnt1sZKIXOXT",
+    "name": "searchLogs",
+    "args": {
+     "query": "\"User-Agent\" OR \"ua\" OR \"utm_source\" OR \"campaign\"",
+     "service": "checkout-web",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 49.814,
+   "event": {
+    "type": "tool_result",
+    "step": 13,
+    "id": "call_eAlD3G2r2fxADnt1sZKIXOXT",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 208,
+    "output": "{\"query\":\"\\\"User-Agent\\\" OR \\\"ua\\\" OR \\\"utm_source\\\" OR \\\"campaign\\\"\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 63.392,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 50628,
+    "outputTokens": 2191,
+    "costUsd": 0.01704
+   }
+  },
+  {
+   "t": 63.392,
+   "event": {
+    "type": "report",
+    "model": "gpt-5-mini",
+    "report": {
+     "severity": "SEV4",
+     "title": "High incoming checkout traffic (~3x) starting 2026-11-27T17:31Z \u2014 system healthy, likely traffic spike",
+     "summary": "Starting ~2026-11-27T17:31Z checkout-api request rate rose from ~850 req/min baseline to ~3,000 req/min (\u2248+252%). Dependent services (pricing, inventory, payment, order) show proportional increases. Error rates and p95 latencies remain within normal ranges.",
+     "customerImpact": "Increased load on checkout path; customers appear to still complete checkouts (no elevated errors or latency breaches observed). No increased failed payments or duplicate orders detected in our metrics.",
+     "rootCause": {
+      "category": "traffic_spike_no_bug",
+      "culprit": "sudden increase in legitimate or automated traffic (source unknown)",
+      "description": "Traffic to checkout-api and downstream services increased ~3x beginning 2026-11-27T17:31Z. No deploys to checkout-api or related services in the 6h window; service metrics (error_rate, p95 latency) remain near baseline, indicating system is handling load rather than failing."
+     },
+     "evidence": [
+      {
+       "source": "metrics",
+       "detail": "checkout-api requests_per_min: baseline 849 req/min, latest 2989 req/min, change +252%; change detected startedAt 2026-11-27T17:31Z (queryMetrics)"
+      },
+      {
+       "source": "metrics",
+       "detail": "pricing-service requests_per_min last5min 9,646 (baseline 2,602); inventory-service last5min 5,774 (baseline 1,712); payment-service last5min 1,504 (baseline 421); order-service last5min 1,488 (baseline 402) \u2014 all scaled up proportionally (getServiceHealth)"
+      },
+      {
+       "source": "metrics",
+       "detail": "Error rates and p95 latencies remain near baseline across services (checkout-api error_rate baseline 0.0031 vs last5min 0.0034; checkout-api p95 212ms baseline vs 247ms last5min) \u2014 system healthy (getServiceHealth)"
+      },
+      {
+       "source": "deploys",
+       "detail": "No deploys to checkout-api, checkout-web, pricing, inventory, or payment in last 6 hours; only order-service deploy d-4790 at 2026-11-27T12:00Z (not near spike) (listDeploys)"
+      },
+      {
+       "source": "traces",
+       "detail": "Representative traces through checkout show successful end-to-end spans including payment and order creation (example trace tr_0df6ae2762 at 2026-11-27T17:07Z), indicating normal request processing (getTraces)"
+      }
+     ],
+     "recommendedActions": [
+      {
+       "action": "monitor",
+       "target": "checkout-api and downstream services",
+       "rationale": "SLOs (errors and latency) are within normal ranges; continue monitoring to see if traffic subsides or leads to resource exhaustion.",
+       "risk": "low"
+      },
+      {
+       "action": "other",
+       "target": "Investigate traffic sources (CDN logs, WAF, load balancer, analytics)",
+       "rationale": "Determine whether increase is due to marketing campaign, a traffic acquisition source, or bots/attacks. Fastest diagnostic is to check CDN (edge) logs and WAF for spikes in IPs, UA, or campaign parameters.",
+       "risk": "low"
+      },
+      {
+       "action": "scale_out",
+       "target": "checkout-api autoscaling (current min 6 max 20)",
+       "rationale": "If traffic persists and begins to increase latency or error rate, raise max instances or temporarily increase capacity to maintain SLOs. Current autoscale config: min=6,max=20,targetCpu=0.6 (getServiceConfig).",
+       "risk": "medium"
+      },
+      {
+       "action": "other",
+       "target": "payment-provider failover plan",
+       "rationale": "Verify Fabrikam Payments capacity and error metrics (provider_error_rate, duplicate_charges_per_min). If payment provider shows degradation under sustained load, prepare failover to alternate provider.",
+       "risk": "medium"
+      }
+     ],
+     "followUps": [
+      "Check CDN/edge logs and WAF for top client IPs, User-Agent, and any campaign query params starting at 2026-11-27T17:30Z.",
+      "Confirm instance count for checkout-api and current CPU/queue backpressure; adjust autoscale if CPU/queues approach thresholds.",
+      "If traffic is malicious (bots) - block offending IPs/ranges at CDN/WAF; do not disable fraud checks.",
+      "If traffic is legitimate and sustained, consider raising capacity permanently or optimizing request cost per checkout."
+     ],
+     "suspiciousContent": [],
+     "confidence": 0.7
+    }
+   }
+  },
+  {
+   "t": 63.392,
+   "event": {
+    "type": "run_finished",
+    "model": "gpt-5-mini",
+    "steps": 14,
+    "toolCalls": 17,
+    "inputTokens": 50628,
+    "outputTokens": 2191,
+    "costUsd": 0.01704,
+    "latencyMs": 63382,
+    "stoppedReason": "report submitted",
+    "error": null
+   }
+  }
+ ]
+}

@@ -1,0 +1,641 @@
+{
+ "scenarioId": "double-charge",
+ "recordedAt": "2026-11-22T20:47Z",
+ "provider": "Azure OpenAI (API key)",
+ "model": "gpt-5-mini",
+ "scripted": false,
+ "passed": true,
+ "events": [
+  {
+   "t": 0.0,
+   "event": {
+    "type": "agent_started",
+    "model": "gpt-5-mini",
+    "promptVersion": "2026-11-22.2"
+   }
+  },
+  {
+   "t": 1.167,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 1794,
+    "outputTokens": 20,
+    "costUsd": 0.00049
+   }
+  },
+  {
+   "t": 1.167,
+   "event": {
+    "type": "tool_call",
+    "step": 1,
+    "id": "call_BYjsRaWDwyGsgi0fhkOtaQR5",
+    "name": "getServiceHealth",
+    "args": {}
+   }
+  },
+  {
+   "t": 1.168,
+   "event": {
+    "type": "tool_result",
+    "step": 1,
+    "id": "call_BYjsRaWDwyGsgi0fhkOtaQR5",
+    "name": "getServiceHealth",
+    "ok": true,
+    "chars": 2142,
+    "output": "{\"asOf\":\"2026-11-27T18:00Z\",\"callGraph\":\"checkout-web -> checkout-api -> {pricing-service, inventory-service, payment-service -> Fabrikam Payments (external), order-service}\",\"services\":[{\"service\":\"checkout-web\",\"role\":\"Storefront backend-for-frontend; calls checkout-api\",\"requests_per_min\":{\"baseline\":908,\"last5min\":890},\"error_rate\":{\"baseline\":0.002,\"last5min\":0.0021},\"latency_p95_ms\":{\"baseline\":181,\"last5min\":187},\"status\":\"healthy\"},{\"service\":\"checkout-api\",\"role\":\"Checkout orchestration: cart pricing, reservation, payment, order creation\",\"requests_per_min\":{\"baseline\":847,\"last5min\":851},\"error_rate\":{\"baseline\":0.0031,\"last5min\":0.003},\"latency_p95_ms\":{\"baseline\":212,\"last5min\":217},\"status\":\"healthy\"},{\"service\":\"pricing-service\",\"role\":\"Returns prices and discounts for SKUs\",\"requests_per_min\":{\"baseline\":2594,\"last5min\":2659},\"error_rate\":{\"baseline\":0.001,\"last5min\":0.001},\"latency_p95_ms\":{\"baseline\":34.98,\"last5min\":35.53},\"status\":\"healthy\"},{\"service\":\"inventory-service\",\"role\":\"Reserves stock for items in a cart\",\"requests_per_min\":{\"baseline\":1706,\"last5min\":1683},\"error_rate\":{\"baseline\":0.001,\"last5min\":0.0011},\"latency_p95_ms\":{\"baseline\":45.5,\"last5min\":45.92},\"status\":\"healthy\"},{\"service\":\"payment-service\",\"role\":\"Charges cards through Fabrikam Payments (external provider)\",\"requests_per_min\":{\"baseline\":418,\"last5min\":461},\"error_rate\":{\"baseline\":0.0037,\"last5min\":0.0045},\"latency_p95_ms\":{\"baseline\":659,\"last5min\":1740},\"status\":\"degraded\"},{\"service\":\"order-service\",\"role\":\"Creates orders and order history; also logs support tickets\",\"requests_per_min\":{\"baseline\":402,\"last5min\":408},\"error_rate\":{\"baseline\":0.002,\"last5min\":0.0021},\"latency_p95_ms\":{\"baseline\":118,\"last5min\":120},\"status\":\"healthy\"}],\"otherMetricsAvailable\":{\"checkout-api\":[\"checkout_success_rate\",\"pricing_calls_per_request\",\"instance_count\"],\"payment-service\":[\"provider_requests_per_min\",\"provider_error_rate\",\"duplicate_charges_per_min\",\"auth_failures_per_min\",\"charges_missing_idempotency_key_per_min\"]},\"note\":\"baseline = mean of the first hour of the 2-hour window; last5min = mean of the last 5 minutes\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 4.226,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 4177,
+    "outputTokens": 250,
+    "costUsd": 0.00154
+   }
+  },
+  {
+   "t": 4.226,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_kZ01yEygin1IlLCIhVEWUBM0",
+    "name": "queryMetrics",
+    "args": {
+     "service": "payment-service",
+     "metric": "duplicate_charges_per_min",
+     "minutes": 120
+    }
+   }
+  },
+  {
+   "t": 4.226,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_kZ01yEygin1IlLCIhVEWUBM0",
+    "name": "queryMetrics",
+    "ok": true,
+    "chars": 1202,
+    "output": "{\"service\":\"payment-service\",\"metric\":\"duplicate_charges_per_min\",\"unit\":\"charges/min\",\"baseline\":0.0,\"baselineStd\":0.0,\"latest\":5.42,\"changePct\":\"n/a (baseline is 0)\",\"changeDetected\":{\"startedAt\":\"2026-11-27T17:30Z\",\"minutesAgo\":30,\"direction\":\"up\"},\"bucketMinutes\":5,\"buckets\":[{\"t\":\"2026-11-27T16:01Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:06Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:11Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:16Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:21Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:26Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:31Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:36Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:41Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:46Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:51Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:56Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:01Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:06Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:11Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:16Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:21Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:26Z\",\"value\":0.5392},{\"t\":\"2026-11-27T17:31Z\",\"value\":7.75},{\"t\":\"2026-11-27T17:36Z\",\"value\":5.45},{\"t\":\"2026-11-27T17:41Z\",\"value\":6.67},{\"t\":\"2026-11-27T17:46Z\",\"value\":7.37},{\"t\":\"2026-11-27T17:51Z\",\"value\":7.87},{\"t\":\"2026-11-27T17:56Z\",\"value\":7.1}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 4.226,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_nnxU4ZhO1pQ7VSDQlLvOxXBv",
+    "name": "queryMetrics",
+    "args": {
+     "service": "payment-service",
+     "metric": "charges_missing_idempotency_key_per_min",
+     "minutes": 120
+    }
+   }
+  },
+  {
+   "t": 4.227,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_nnxU4ZhO1pQ7VSDQlLvOxXBv",
+    "name": "queryMetrics",
+    "ok": true,
+    "chars": 1207,
+    "output": "{\"service\":\"payment-service\",\"metric\":\"charges_missing_idempotency_key_per_min\",\"unit\":\"charges/min\",\"baseline\":0.0,\"baselineStd\":0.0,\"latest\":400,\"changePct\":\"n/a (baseline is 0)\",\"changeDetected\":{\"startedAt\":\"2026-11-27T17:28Z\",\"minutesAgo\":32,\"direction\":\"up\"},\"bucketMinutes\":5,\"buckets\":[{\"t\":\"2026-11-27T16:01Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:06Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:11Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:16Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:21Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:26Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:31Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:36Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:41Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:46Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:51Z\",\"value\":0.0},{\"t\":\"2026-11-27T16:56Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:01Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:06Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:11Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:16Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:21Z\",\"value\":0.0},{\"t\":\"2026-11-27T17:26Z\",\"value\":199},{\"t\":\"2026-11-27T17:31Z\",\"value\":399},{\"t\":\"2026-11-27T17:36Z\",\"value\":400},{\"t\":\"2026-11-27T17:41Z\",\"value\":397},{\"t\":\"2026-11-27T17:46Z\",\"value\":395},{\"t\":\"2026-11-27T17:51Z\",\"value\":403},{\"t\":\"2026-11-27T17:56Z\",\"value\":402}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 4.227,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_7cKhodYaApZdw8ejJa40PhGZ",
+    "name": "queryMetrics",
+    "args": {
+     "service": "payment-service",
+     "metric": "provider_error_rate",
+     "minutes": 120
+    }
+   }
+  },
+  {
+   "t": 4.228,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_7cKhodYaApZdw8ejJa40PhGZ",
+    "name": "queryMetrics",
+    "ok": true,
+    "chars": 1189,
+    "output": "{\"service\":\"payment-service\",\"metric\":\"provider_error_rate\",\"unit\":\"ratio (0-1)\",\"baseline\":0.0021,\"baselineStd\":0.0005,\"latest\":0.0019,\"changePct\":-10.56,\"changeDetected\":null,\"bucketMinutes\":5,\"buckets\":[{\"t\":\"2026-11-27T16:01Z\",\"value\":0.0023},{\"t\":\"2026-11-27T16:06Z\",\"value\":0.0024},{\"t\":\"2026-11-27T16:11Z\",\"value\":0.0022},{\"t\":\"2026-11-27T16:16Z\",\"value\":0.0018},{\"t\":\"2026-11-27T16:21Z\",\"value\":0.002},{\"t\":\"2026-11-27T16:26Z\",\"value\":0.0024},{\"t\":\"2026-11-27T16:31Z\",\"value\":0.0019},{\"t\":\"2026-11-27T16:36Z\",\"value\":0.0021},{\"t\":\"2026-11-27T16:41Z\",\"value\":0.0016},{\"t\":\"2026-11-27T16:46Z\",\"value\":0.0021},{\"t\":\"2026-11-27T16:51Z\",\"value\":0.0023},{\"t\":\"2026-11-27T16:56Z\",\"value\":0.0019},{\"t\":\"2026-11-27T17:01Z\",\"value\":0.0017},{\"t\":\"2026-11-27T17:06Z\",\"value\":0.0018},{\"t\":\"2026-11-27T17:11Z\",\"value\":0.0022},{\"t\":\"2026-11-27T17:16Z\",\"value\":0.0017},{\"t\":\"2026-11-27T17:21Z\",\"value\":0.002},{\"t\":\"2026-11-27T17:26Z\",\"value\":0.0019},{\"t\":\"2026-11-27T17:31Z\",\"value\":0.0022},{\"t\":\"2026-11-27T17:36Z\",\"value\":0.0021},{\"t\":\"2026-11-27T17:41Z\",\"value\":0.0016},{\"t\":\"2026-11-27T17:46Z\",\"value\":0.0016},{\"t\":\"2026-11-27T17:51Z\",\"value\":0.0019},{\"t\":\"2026-11-27T17:56Z\",\"value\":0.0021}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 4.228,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_pn1YDtc9ditUj5WWjGiUy2rI",
+    "name": "listDeploys",
+    "args": {
+     "service": "payment-service",
+     "hours": 24
+    }
+   }
+  },
+  {
+   "t": 4.228,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_pn1YDtc9ditUj5WWjGiUy2rI",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 61,
+    "output": "{\"window\":\"last 24 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 4.228,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_Dy8AvyXc6XnxUX9HURS9Gtbw",
+    "name": "searchLogs",
+    "args": {
+     "service": "payment-service",
+     "query": "duplicate charge idempotency key missing duplicate_charge",
+     "level": "ERROR",
+     "minutes": 120,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 4.228,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_Dy8AvyXc6XnxUX9HURS9Gtbw",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 207,
+    "output": "{\"query\":\"duplicate charge idempotency key missing duplicate_charge\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 6.284,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 8850,
+    "outputTokens": 407,
+    "costUsd": 0.00303
+   }
+  },
+  {
+   "t": 6.284,
+   "event": {
+    "type": "tool_call",
+    "step": 3,
+    "id": "call_DOOSqRWAPogogCRnnIDoYGpo",
+    "name": "listDeploys",
+    "args": {
+     "service": "checkout-api",
+     "hours": 24
+    }
+   }
+  },
+  {
+   "t": 6.284,
+   "event": {
+    "type": "tool_result",
+    "step": 3,
+    "id": "call_DOOSqRWAPogogCRnnIDoYGpo",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 61,
+    "output": "{\"window\":\"last 24 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 7.421,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 13584,
+    "outputTokens": 430,
+    "costUsd": 0.00426
+   }
+  },
+  {
+   "t": 7.421,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_oksW5qvCsvojDeAOAeLm5l2I",
+    "name": "listDeploys",
+    "args": {
+     "service": "payment-service",
+     "hours": 24
+    }
+   }
+  },
+  {
+   "t": 7.421,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_oksW5qvCsvojDeAOAeLm5l2I",
+    "name": "listDeploys",
+    "ok": false,
+    "chars": 95,
+    "output": "{\"note\":\"You already made this exact call. Use the earlier result or try something different.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.753,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 18373,
+    "outputTokens": 448,
+    "costUsd": 0.00549
+   }
+  },
+  {
+   "t": 8.753,
+   "event": {
+    "type": "tool_call",
+    "step": 5,
+    "id": "call_IobF55w5Wcz6HQErBMcMt6CS",
+    "name": "listDeploys",
+    "args": {
+     "hours": 72
+    }
+   }
+  },
+  {
+   "t": 8.754,
+   "event": {
+    "type": "tool_result",
+    "step": 5,
+    "id": "call_IobF55w5Wcz6HQErBMcMt6CS",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 684,
+    "output": "{\"window\":\"last 72 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[{\"deployId\":\"d-4836\",\"service\":\"checkout-web\",\"version\":\"v2.8.0\",\"deployedAt\":\"2026-11-27T17:27Z\",\"minutesAgo\":33,\"author\":\"akumar\",\"summary\":\"Migrate payment submission to new PaymentsClient\",\"status\":\"succeeded\"},{\"deployId\":\"d-4790\",\"service\":\"order-service\",\"version\":\"v3.9.1\",\"deployedAt\":\"2026-11-27T12:00Z\",\"minutesAgo\":360,\"author\":\"mgarcia\",\"summary\":\"Add CSV export for order history\",\"status\":\"succeeded\"},{\"deployId\":\"d-4772\",\"service\":\"pricing-service\",\"version\":\"v2.2.0\",\"deployedAt\":\"2026-11-26T22:00Z\",\"minutesAgo\":1200,\"author\":\"tchen\",\"summary\":\"Holiday discount rules engine update\",\"status\":\"succeeded\"}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 9.915,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 23408,
+    "outputTokens": 470,
+    "costUsd": 0.00679
+   }
+  },
+  {
+   "t": 9.915,
+   "event": {
+    "type": "tool_call",
+    "step": 6,
+    "id": "call_5riIQw82cZxU6lIiQibcgv5P",
+    "name": "getDeployDiff",
+    "args": {
+     "deployId": "d-4836"
+    }
+   }
+  },
+  {
+   "t": 9.915,
+   "event": {
+    "type": "tool_result",
+    "step": 6,
+    "id": "call_5riIQw82cZxU6lIiQibcgv5P",
+    "name": "getDeployDiff",
+    "ok": true,
+    "chars": 723,
+    "output": "{\"deployId\":\"d-4836\",\"service\":\"checkout-web\",\"version\":\"v2.8.0\",\"summary\":\"Migrate payment submission to new PaymentsClient\",\"diff\":\"--- a/src/web/checkout/submitPayment.ts\\n+++ b/src/web/checkout/submitPayment.ts\\n@@ -12,11 +12,10 @@ export async function submitPayment(cart: Cart, payload: PaymentPayload) {\\n-  const res = await fetch(`${API}/checkout/complete`, {\\n-    method: \\\"POST\\\",\\n-    headers: { \\\"Content-Type\\\": \\\"application/json\\\", \\\"Idempotency-Key\\\": cart.checkoutAttemptId },\\n-    body: JSON.stringify(payload),\\n-  });\\n+  const res = await paymentsClient.post(\\\"/checkout/complete\\\", payload, {\\n+    timeoutMs: 1500,\\n+    retry: { attempts: 2, onTimeout: true },\\n+  });\\n   return res.json();\\n\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 11.876,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 28685,
+    "outputTokens": 588,
+    "costUsd": 0.00835
+   }
+  },
+  {
+   "t": 11.876,
+   "event": {
+    "type": "tool_call",
+    "step": 7,
+    "id": "call_khc3BeifLl3ySHHgdR8U9C0A",
+    "name": "searchLogs",
+    "args": {
+     "service": "checkout-web",
+     "query": "Idempotency-Key timeout paymentsClient retry timeout error POST /checkout/complete",
+     "level": "ERROR",
+     "minutes": 120,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 11.877,
+   "event": {
+    "type": "tool_result",
+    "step": 7,
+    "id": "call_khc3BeifLl3ySHHgdR8U9C0A",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 232,
+    "output": "{\"query\":\"Idempotency-Key timeout paymentsClient retry timeout error POST /checkout/complete\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 13.161,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 34073,
+    "outputTokens": 636,
+    "costUsd": 0.00979
+   }
+  },
+  {
+   "t": 13.161,
+   "event": {
+    "type": "tool_call",
+    "step": 8,
+    "id": "call_GmHaoy8yqhdPW02he5gGHUm3",
+    "name": "searchLogs",
+    "args": {
+     "service": "payment-service",
+     "query": "missing idempotency key retry timeout paymentsClient post duplicate charge idempotency",
+     "level": "ERROR",
+     "minutes": 60,
+     "limit": 20
+    }
+   }
+  },
+  {
+   "t": 13.161,
+   "event": {
+    "type": "tool_result",
+    "step": 8,
+    "id": "call_GmHaoy8yqhdPW02he5gGHUm3",
+    "name": "searchLogs",
+    "ok": true,
+    "chars": 236,
+    "output": "{\"query\":\"missing idempotency key retry timeout paymentsClient post duplicate charge idempotency\",\"totalMatches\":0,\"hint\":\"No matches. All terms must appear in a line; try fewer or different terms, another service, or a longer window.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 14.285,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 39572,
+    "outputTokens": 655,
+    "costUsd": 0.0112
+   }
+  },
+  {
+   "t": 14.285,
+   "event": {
+    "type": "tool_call",
+    "step": 9,
+    "id": "call_V8JtsRXHA1Xzvwkd6azN2CH6",
+    "name": "getServiceConfig",
+    "args": {
+     "service": "checkout-web"
+    }
+   }
+  },
+  {
+   "t": 14.285,
+   "event": {
+    "type": "tool_result",
+    "step": 9,
+    "id": "call_V8JtsRXHA1Xzvwkd6azN2CH6",
+    "name": "getServiceConfig",
+    "ok": true,
+    "chars": 158,
+    "output": "{\"service\":\"checkout-web\",\"config\":{\"paymentClient\":{\"timeoutMs\":1500,\"retry\":{\"attempts\":2,\"onTimeout\":true}},\"featureFlags\":{\"bf26-homepage-banner\":false}}}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 15.499,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 45144,
+    "outputTokens": 674,
+    "costUsd": 0.01263
+   }
+  },
+  {
+   "t": 15.499,
+   "event": {
+    "type": "tool_call",
+    "step": 10,
+    "id": "call_4zQlXZINidebpNpINH2FeFvr",
+    "name": "getServiceConfig",
+    "args": {
+     "service": "payment-service"
+    }
+   }
+  },
+  {
+   "t": 15.5,
+   "event": {
+    "type": "tool_result",
+    "step": 10,
+    "id": "call_4zQlXZINidebpNpINH2FeFvr",
+    "name": "getServiceConfig",
+    "ok": true,
+    "chars": 477,
+    "output": "{\"service\":\"payment-service\",\"config\":{\"provider\":\"Fabrikam Payments\",\"retryPolicy\":{\"maxAttempts\":2,\"backoff\":\"exponential\",\"baseDelayMs\":200},\"circuitBreaker\":{\"enabled\":true,\"failureRateThreshold\":0.5},\"secondaryProvider\":{\"name\":\"Northwind Pay\",\"failoverEnabled\":true},\"secrets\":[{\"name\":\"FabrikamApiKey\",\"source\":\"Azure Key Vault (kv-checkout-prod)\",\"expiresAt\":\"2027-03-01T00:00Z\",\"rotation\":\"automatic\"}],\"idempotency\":{\"required\":false,\"headerName\":\"Idempotency-Key\"}}}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 21.335,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 50874,
+    "outputTokens": 709,
+    "costUsd": 0.01414
+   }
+  },
+  {
+   "t": 21.335,
+   "event": {
+    "type": "tool_call",
+    "step": 11,
+    "id": "call_yY0tKmm30JbrFPuU8GpeGlbq",
+    "name": "searchRunbooks",
+    "args": {
+     "query": "idempotency duplicate charges rollbacks checkout-web paymentsClient retry idempotency-key header missing"
+    }
+   }
+  },
+  {
+   "t": 21.337,
+   "event": {
+    "type": "tool_result",
+    "step": 11,
+    "id": "call_yY0tKmm30JbrFPuU8GpeGlbq",
+    "name": "searchRunbooks",
+    "ok": true,
+    "chars": 1233,
+    "output": "{\"query\":\"idempotency duplicate charges rollbacks checkout-web paymentsClient retry idempotency-key header missing\",\"results\":[{\"runbook\":\"duplicate-charges.md\",\"title\":\"Runbook: duplicate charges\",\"section\":\"Diagnosis\",\"score\":11.23,\"text\":\"- Check charges_missing_idempotency_key_per_min on payment-service and when it started.\\n- Search payment-service logs for \\\"missing Idempotency-Key\\\" and checkout-web logs for retries.\\n- Look for a recent deploy of a client (checkout-web, checkout-api) that changed how payments are submitted.\"},{\"runbook\":\"duplicate-charges.md\",\"title\":\"Runbook: duplicate charges\",\"section\":\"Why it happens\",\"score\":10.24,\"text\":\"A client retries a payment after a timeout. If the retry carries the same Idempotency-Key, payment-service returns the first result. If the key is missing, payment-service treats the retry as a new charge. Slow provider responses cause more timeouts and therefore more retries.\"},{\"runbook\":\"duplicate-charges.md\",\"title\":\"Runbook: duplicate charges\",\"section\":\"Mitigation\",\"score\":6.93,\"text\":\"- Stop new duplicates first: roll back the client change, or ship a hotfix that sends the Idempotency-Key again.\\n- Then refund the duplicate charges found by reconciliation.\"}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 37.738,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 56922,
+    "outputTokens": 2066,
+    "costUsd": 0.01836
+   }
+  },
+  {
+   "t": 37.738,
+   "event": {
+    "type": "report",
+    "model": "gpt-5-mini",
+    "report": {
+     "severity": "SEV1",
+     "title": "Recent checkout-web deploy removed Idempotency-Key header causing widespread duplicate charges (since ~2026-11-27T17:28Z)",
+     "summary": "Since ~2026-11-27T17:28Z customers are receiving duplicate credit-card charges. The surge began minutes after a checkout-web deploy (d-4836 at 2026-11-27T17:27Z) that changed payment submission to a new PaymentsClient and removed the Idempotency-Key header.",
+     "customerImpact": "Customers are being billed multiple times for single purchases (reconciliation shows ~5\u20138 duplicate charges/min and payment-service reports ~400 requests/min missing idempotency keys). Financial harm and support load; immediate mitigation required.",
+     "rootCause": {
+      "category": "bad_deploy",
+      "culprit": "d-4836 checkout-web v2.8.0 (deployed 2026-11-27T17:27Z)",
+      "description": "The deploy replaced direct fetch POST to /checkout/complete (which set header 'Idempotency-Key': cart.checkoutAttemptId) with paymentsClient.post(...) but did not supply the Idempotency-Key. paymentsClient is configured to retry on timeouts, so timed-out requests retried without the idempotency header created distinct charges."
+     },
+     "evidence": [
+      {
+       "source": "metrics",
+       "detail": "duplicate_charges_per_min for payment-service rose from baseline 0 to 5.42 (latest) with change detected starting 2026-11-27T17:30Z; five-minute buckets show values 7.75 at 17:31Z, 5.45 at 17:36Z, up to 7.87 at 17:51Z."
+      },
+      {
+       "source": "metrics",
+       "detail": "charges_missing_idempotency_key_per_min on payment-service rose from 0 to ~400 (latest) with change detected starting 2026-11-27T17:28Z; buckets: 199 at 17:26Z, 399 at 17:31Z, ~400 thereafter."
+      },
+      {
+       "source": "deploys",
+       "detail": "Deploy d-4836 (checkout-web v2.8.0) succeeded at 2026-11-27T17:27Z with summary 'Migrate payment submission to new PaymentsClient'."
+      },
+      {
+       "source": "deploys",
+       "detail": "Deploy diff for d-4836 shows code change replacing fetch POST that included header 'Idempotency-Key': cart.checkoutAttemptId with paymentsClient.post(..., {timeoutMs:1500, retry:{attempts:2,onTimeout:true}}) \u2014 header removed."
+      },
+      {
+       "source": "config",
+       "detail": "checkout-web config shows paymentClient.retry.attempts=2 and onTimeout=true (paymentsClient will retry on timeouts). payment-service config shows idempotency.required=false and headerName 'Idempotency-Key'."
+      }
+     ],
+     "recommendedActions": [
+      {
+       "action": "rollback_deploy",
+       "target": "d-4836 checkout-web v2.8.0",
+       "rationale": "This deploy removed the Idempotency-Key header; rolling back restores the previous behavior immediately and stops new duplicate charges fastest.",
+       "risk": "low"
+      },
+      {
+       "action": "other",
+       "target": "checkout-web: hotfix to restore Idempotency-Key header when calling paymentsClient.post (or configure paymentsClient to forward existing headers and include idempotency key in request body)",
+       "rationale": "If rollback is not possible quickly, deploy a hotfix that sets header 'Idempotency-Key': cart.checkoutAttemptId on paymentsClient.post and avoids retrying on timeout for payment submissions.",
+       "risk": "medium"
+      },
+      {
+       "action": "refund_duplicate_charges",
+       "target": "payment-service reconciliation batch since 2026-11-27T17:27Z",
+       "rationale": "Reconcile and refund affected charges found by the reconciliation job to remediate customer harm; prioritize high-value charges and inform support.",
+       "risk": "medium"
+      },
+      {
+       "action": "enable_circuit_breaker",
+       "target": "checkout-web paymentClient retries / paymentsClient timeout behavior",
+       "rationale": "Temporarily disable client-side automatic retries for payment submission (or set onTimeout=false) to prevent duplicate attempts while provider is slow.",
+       "risk": "low"
+      },
+      {
+       "action": "monitor",
+       "target": "payment-service metrics duplicate_charges_per_min and charges_missing_idempotency_key_per_min",
+       "rationale": "Continue monitoring these metrics and payment-provider error/latency; confirm duplicates stop after rollback/hotfix.",
+       "risk": "low"
+      }
+     ],
+     "followUps": [
+      "After mitigation, add automated integration test that ensures Idempotency-Key is preserved when switching HTTP clients.",
+      "Consider making idempotency.required=true in payment-service or validating presence of Idempotency-Key and rejecting/alerting earlier.",
+      "Run a support/communications plan: notify affected customers, prepare refund and complaint handling templates."
+     ],
+     "suspiciousContent": [],
+     "confidence": 0.9
+    }
+   }
+  },
+  {
+   "t": 37.738,
+   "event": {
+    "type": "run_finished",
+    "model": "gpt-5-mini",
+    "steps": 12,
+    "toolCalls": 15,
+    "inputTokens": 56922,
+    "outputTokens": 2066,
+    "costUsd": 0.01836,
+    "latencyMs": 37727,
+    "stoppedReason": "report submitted",
+    "error": null
+   }
+  }
+ ]
+}

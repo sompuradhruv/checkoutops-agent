@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CheckoutOps Agent</title>
+<meta name="description" content="An AI on-call agent that investigates incidents on a simulated checkout platform and recommends fixes for a human to approve.">
+<link rel="preload" href="/static/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/styles.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="brand">
+    <h1>CheckoutOps Agent</h1>
+    <p class="lede">An AI on-call agent for a checkout platform. Pick a paged alert, watch it investigate with read-only tools, then approve or ignore what it recommends.</p>
+  </div>
+  <p class="runtime" id="runtime" role="status">Connecting…</p>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#console" class="tab" id="tab-console" aria-current="page">Incident console</a>
+    <a href="#evals" class="tab" id="tab-evals">Eval results</a>
+    <a href="#how" class="tab" id="tab-how">How it works</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="console" id="panel-console" aria-labelledby="tab-console">
+    <aside class="queue" aria-labelledby="queue-heading">
+      <h2 id="queue-heading">Paged alerts</h2>
+      <ul id="queue" class="queue-list"></ul>
+      <p class="queue-note">The platform and its telemetry are simulated. Each alert hides one injected fault, and one alert is a false alarm.</p>
+    </aside>
+
+    <article class="incident" id="incident" aria-live="polite">
+      <header class="alert-head">
+        <p class="fired" id="fired"></p>
+        <h2 id="alert-title">Loading alerts…</h2>
+        <p class="teaser" id="teaser"></p>
+      </header>
+
+      <figure class="chart">
+        <svg id="chart" viewBox="0 0 720 190" role="img" aria-labelledby="chart-caption"></svg>
+        <figcaption id="chart-caption"></figcaption>
+      </figure>
+
+      <div class="run-bar">
+        <button type="button" class="primary" id="run-btn" disabled>Investigate</button>
+        <label class="mode">Run as
+          <select id="mode">
+            <option value="auto">Live, or a recording if live is unavailable</option>
+            <option value="replay">Recording of a real run</option>
+          </select>
+        </label>
+        <p class="run-note" id="run-note" role="status"></p>
+      </div>
+
+      <ol class="timeline" id="timeline" aria-label="Investigation steps"></ol>
+      <div id="receipt-slot"></div>
+      <section class="truth" id="truth" hidden aria-labelledby="truth-heading"></section>
+    </article>
+  </section>
+
+  <section class="evals" id="panel-evals" hidden aria-labelledby="tab-evals">
+    <h2>Eval results</h2>
+    <p class="measure">Every scenario has a known root cause, so each report is scored with exact checks instead of a second model grading the first. A run passes only if it names the right root cause and culprit, recommends a working mitigation, recommends nothing harmful, and, where relevant, sets the right severity and flags prompt injection.</p>
+    <div id="evals-body"><p>Loading…</p></div>
+  </section>
+
+  <section class="how" id="panel-how" hidden aria-labelledby="tab-how">
+    <h2>How it works</h2>
+    <p class="measure">When an alert fires, a language model on Azure OpenAI investigates it the way an on-call engineer would: health overview, metrics, logs, traces, recent deploys, config and runbooks. It can only read. It finishes with a structured report, and every recommended change waits for a person to approve it.</p>
+
+    <figure class="arch">
+      <svg viewBox="0 0 860 330" role="img" aria-labelledby="arch-cap">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrowhead"/></marker>
+        </defs>
+        <g class="node"><rect x="20" y="40" width="150" height="64" rx="6"/><text x="95" y="68" class="name">Alert fires</text><text x="95" y="88" class="sub">simulated platform</text></g>
+        <g class="node strong"><rect x="230" y="30" width="200" height="84" rx="6"/><text x="330" y="62" class="name">Agent loop</text><text x="330" y="82" class="sub">model picks a tool, up to</text><text x="330" y="98" class="sub">14 steps or a token budget</text></g>
+        <g class="node"><rect x="500" y="30" width="170" height="84" rx="6"/><text x="585" y="62" class="name">Tool gateway</text><text x="585" y="82" class="sub">allow-list, schema checks,</text><text x="585" y="98" class="sub">read-only</text></g>
+        <g class="node"><rect x="700" y="22" width="140" height="100" rx="6"/><text x="770" y="50" class="name">Telemetry</text><text x="770" y="70" class="sub">metrics, logs,</text><text x="770" y="86" class="sub">traces, deploys,</text><text x="770" y="102" class="sub">config, runbooks</text></g>
+        <g class="node guard"><rect x="430" y="150" width="240" height="64" rx="6"/><text x="550" y="176" class="name">Guardrails</text><text x="550" y="196" class="sub">redact secrets, flag injection</text></g>
+        <g class="node"><rect x="230" y="246" width="200" height="64" rx="6"/><text x="330" y="272" class="name">Incident report</text><text x="330" y="292" class="sub">schema-validated JSON</text></g>
+        <g class="node strong"><rect x="500" y="246" width="170" height="64" rx="6"/><text x="585" y="272" class="name">Human approval</text><text x="585" y="292" class="sub">each action, one by one</text></g>
+        <g class="node"><rect x="20" y="246" width="150" height="64" rx="6"/><text x="95" y="272" class="name">Eval scoring</text><text x="95" y="292" class="sub">vs ground truth</text></g>
+        <g class="links">
+          <path d="M170 72H230" marker-end="url(#arrow)"/>
+          <path d="M430 58H500" marker-end="url(#arrow)"/>
+          <path d="M670 72H700" marker-end="url(#arrow)"/>
+          <path d="M585 114V150" marker-end="url(#arrow)"/>
+          <path d="M430 182H390V114" marker-end="url(#arrow)"/>
+          <path d="M330 114V246" marker-end="url(#arrow)" class="dashed"/>
+          <path d="M430 278H500" marker-end="url(#arrow)"/>
+          <path d="M230 278H170" marker-end="url(#arrow)"/>
+        </g>
+        <text x="465" y="50" class="edge" text-anchor="middle">tool call</text>
+        <text x="380" y="140" class="edge" text-anchor="end">result</text>
+        <text x="320" y="190" class="edge" text-anchor="end">submitReport</text>
+      </svg>
+      <figcaption id="arch-cap">The model only ever proposes. Our code validates and runs every tool, cleans every result, and nothing changes until a person approves it.</figcaption>
+    </figure>
+
+    <div class="how-grid">
+      <section>
+        <h3>Guardrails</h3>
+        <ul class="plain">
+          <li><strong>Read-only tools.</strong> The agent has no tool that changes anything.</li>
+          <li><strong>Human approval.</strong> Rollbacks, failovers and rotations are recommendations until someone approves them.</li>
+          <li><strong>Secret redaction.</strong> Keys, tokens, passwords and card numbers are masked before tool output reaches the model.</li>
+          <li><strong>Injection handling.</strong> Customer-written text in logs is treated as data. Lines that try to instruct the agent are flagged and reported.</li>
+          <li><strong>Limits.</strong> Step limit, per-run token budget, repeated-call detection, schema validation of the final report.</li>
+          <li><strong>Demo protection.</strong> Per-visitor rate limit, daily spend cap, and recordings of real runs when live runs are unavailable.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>What each scenario tests</h3>
+        <table class="concepts">
+          <thead><tr><th scope="col">Scenario</th><th scope="col">Concept</th></tr></thead>
+          <tbody id="concepts"></tbody>
+        </table>
+      </section>
+      <section>
+        <h3>Stack</h3>
+        <ul class="plain">
+          <li>Python, FastAPI, server-sent events for live streaming</li>
+          <li>Azure OpenAI in Microsoft Foundry, chat completions with tool calling, managed identity auth when hosted</li>
+          <li>Hand-written agent loop with optional escalation from a small model to a larger one when confidence is low</li>
+          <li>BM25 search over runbooks</li>
+          <li>Seeded simulator so every scenario has one known answer</li>
+          <li>Hosted on Azure Container Apps</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Built by Mohit. All services, logs and companies (Fabrikam Payments, Northwind Pay) are fictional. <a href="https://github.com/sompuradhruv/checkoutops-agent" id="source-link">Source code</a></p>
+</footer>
+</body>
+</html>

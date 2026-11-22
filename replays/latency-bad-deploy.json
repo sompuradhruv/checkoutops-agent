@@ -1,0 +1,368 @@
+{
+ "scenarioId": "latency-bad-deploy",
+ "recordedAt": "2026-11-22T20:46Z",
+ "provider": "Azure OpenAI (API key)",
+ "model": "gpt-5-mini",
+ "scripted": false,
+ "passed": true,
+ "events": [
+  {
+   "t": 0.0,
+   "event": {
+    "type": "agent_started",
+    "model": "gpt-5-mini",
+    "promptVersion": "2026-11-22.2"
+   }
+  },
+  {
+   "t": 1.55,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 1800,
+    "outputTokens": 20,
+    "costUsd": 0.00049
+   }
+  },
+  {
+   "t": 1.55,
+   "event": {
+    "type": "tool_call",
+    "step": 1,
+    "id": "call_MUfPhGQpSYEI31eLo7T0T1UF",
+    "name": "getServiceHealth",
+    "args": {}
+   }
+  },
+  {
+   "t": 1.551,
+   "event": {
+    "type": "tool_result",
+    "step": 1,
+    "id": "call_MUfPhGQpSYEI31eLo7T0T1UF",
+    "name": "getServiceHealth",
+    "ok": true,
+    "chars": 2147,
+    "output": "{\"asOf\":\"2026-11-27T18:00Z\",\"callGraph\":\"checkout-web -> checkout-api -> {pricing-service, inventory-service, payment-service -> Fabrikam Payments (external), order-service}\",\"services\":[{\"service\":\"checkout-web\",\"role\":\"Storefront backend-for-frontend; calls checkout-api\",\"requests_per_min\":{\"baseline\":906,\"last5min\":907},\"error_rate\":{\"baseline\":0.002,\"last5min\":0.0343},\"latency_p95_ms\":{\"baseline\":182,\"last5min\":2460},\"status\":\"degraded\"},{\"service\":\"checkout-api\",\"role\":\"Checkout orchestration: cart pricing, reservation, payment, order creation\",\"requests_per_min\":{\"baseline\":851,\"last5min\":847},\"error_rate\":{\"baseline\":0.0029,\"last5min\":0.0028},\"latency_p95_ms\":{\"baseline\":211,\"last5min\":2366},\"status\":\"degraded\"},{\"service\":\"pricing-service\",\"role\":\"Returns prices and discounts for SKUs\",\"requests_per_min\":{\"baseline\":2615,\"last5min\":16654},\"error_rate\":{\"baseline\":0.001,\"last5min\":0.0011},\"latency_p95_ms\":{\"baseline\":35.03,\"last5min\":93.04},\"status\":\"degraded\"},{\"service\":\"inventory-service\",\"role\":\"Reserves stock for items in a cart\",\"requests_per_min\":{\"baseline\":1693,\"last5min\":1699},\"error_rate\":{\"baseline\":0.001,\"last5min\":0.001},\"latency_p95_ms\":{\"baseline\":45.36,\"last5min\":43.69},\"status\":\"healthy\"},{\"service\":\"payment-service\",\"role\":\"Charges cards through Fabrikam Payments (external provider)\",\"requests_per_min\":{\"baseline\":423,\"last5min\":416},\"error_rate\":{\"baseline\":0.004,\"last5min\":0.0044},\"latency_p95_ms\":{\"baseline\":659,\"last5min\":650},\"status\":\"healthy\"},{\"service\":\"order-service\",\"role\":\"Creates orders and order history; also logs support tickets\",\"requests_per_min\":{\"baseline\":401,\"last5min\":391},\"error_rate\":{\"baseline\":0.002,\"last5min\":0.0021},\"latency_p95_ms\":{\"baseline\":120,\"last5min\":122},\"status\":\"healthy\"}],\"otherMetricsAvailable\":{\"checkout-api\":[\"checkout_success_rate\",\"pricing_calls_per_request\",\"instance_count\"],\"payment-service\":[\"provider_requests_per_min\",\"provider_error_rate\",\"duplicate_charges_per_min\",\"auth_failures_per_min\",\"charges_missing_idempotency_key_per_min\"]},\"note\":\"baseline = mean of the first hour of the 2-hour window; last5min = mean of the last 5 minutes\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 3.739,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 4192,
+    "outputTokens": 161,
+    "costUsd": 0.00137
+   }
+  },
+  {
+   "t": 3.739,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_iB1CKSf6hP0pKu7A9NbDisb3",
+    "name": "queryMetrics",
+    "args": {
+     "service": "checkout-api",
+     "metric": "latency_p95_ms",
+     "minutes": 120
+    }
+   }
+  },
+  {
+   "t": 3.74,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_iB1CKSf6hP0pKu7A9NbDisb3",
+    "name": "queryMetrics",
+    "ok": true,
+    "chars": 1161,
+    "output": "{\"service\":\"checkout-api\",\"metric\":\"latency_p95_ms\",\"unit\":\"ms\",\"baseline\":211,\"baselineStd\":14.42,\"latest\":2360,\"changePct\":1016,\"changeDetected\":{\"startedAt\":\"2026-11-27T17:35Z\",\"minutesAgo\":25,\"direction\":\"up\"},\"bucketMinutes\":5,\"buckets\":[{\"t\":\"2026-11-27T16:01Z\",\"value\":216},{\"t\":\"2026-11-27T16:06Z\",\"value\":219},{\"t\":\"2026-11-27T16:11Z\",\"value\":206},{\"t\":\"2026-11-27T16:16Z\",\"value\":203},{\"t\":\"2026-11-27T16:21Z\",\"value\":207},{\"t\":\"2026-11-27T16:26Z\",\"value\":216},{\"t\":\"2026-11-27T16:31Z\",\"value\":212},{\"t\":\"2026-11-27T16:36Z\",\"value\":212},{\"t\":\"2026-11-27T16:41Z\",\"value\":204},{\"t\":\"2026-11-27T16:46Z\",\"value\":223},{\"t\":\"2026-11-27T16:51Z\",\"value\":213},{\"t\":\"2026-11-27T16:56Z\",\"value\":207},{\"t\":\"2026-11-27T17:01Z\",\"value\":199},{\"t\":\"2026-11-27T17:06Z\",\"value\":198},{\"t\":\"2026-11-27T17:11Z\",\"value\":224},{\"t\":\"2026-11-27T17:16Z\",\"value\":207},{\"t\":\"2026-11-27T17:21Z\",\"value\":216},{\"t\":\"2026-11-27T17:26Z\",\"value\":205},{\"t\":\"2026-11-27T17:31Z\",\"value\":354},{\"t\":\"2026-11-27T17:36Z\",\"value\":2107},{\"t\":\"2026-11-27T17:41Z\",\"value\":2354},{\"t\":\"2026-11-27T17:46Z\",\"value\":2242},{\"t\":\"2026-11-27T17:51Z\",\"value\":2249},{\"t\":\"2026-11-27T17:56Z\",\"value\":2366}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 3.74,
+   "event": {
+    "type": "tool_call",
+    "step": 2,
+    "id": "call_KRr3PTIVR6cWuXZI3wS3HWyq",
+    "name": "queryMetrics",
+    "args": {
+     "service": "pricing-service",
+     "metric": "requests_per_min",
+     "minutes": 120
+    }
+   }
+  },
+  {
+   "t": 3.74,
+   "event": {
+    "type": "tool_result",
+    "step": 2,
+    "id": "call_KRr3PTIVR6cWuXZI3wS3HWyq",
+    "name": "queryMetrics",
+    "ok": true,
+    "chars": 1194,
+    "output": "{\"service\":\"pricing-service\",\"metric\":\"requests_per_min\",\"unit\":\"req/min\",\"baseline\":2615,\"baselineStd\":105,\"latest\":16878,\"changePct\":545,\"changeDetected\":{\"startedAt\":\"2026-11-27T17:35Z\",\"minutesAgo\":25,\"direction\":\"up\"},\"bucketMinutes\":5,\"buckets\":[{\"t\":\"2026-11-27T16:01Z\",\"value\":2549},{\"t\":\"2026-11-27T16:06Z\",\"value\":2664},{\"t\":\"2026-11-27T16:11Z\",\"value\":2619},{\"t\":\"2026-11-27T16:16Z\",\"value\":2650},{\"t\":\"2026-11-27T16:21Z\",\"value\":2691},{\"t\":\"2026-11-27T16:26Z\",\"value\":2597},{\"t\":\"2026-11-27T16:31Z\",\"value\":2643},{\"t\":\"2026-11-27T16:36Z\",\"value\":2563},{\"t\":\"2026-11-27T16:41Z\",\"value\":2618},{\"t\":\"2026-11-27T16:46Z\",\"value\":2641},{\"t\":\"2026-11-27T16:51Z\",\"value\":2586},{\"t\":\"2026-11-27T16:56Z\",\"value\":2563},{\"t\":\"2026-11-27T17:01Z\",\"value\":2551},{\"t\":\"2026-11-27T17:06Z\",\"value\":2524},{\"t\":\"2026-11-27T17:11Z\",\"value\":2586},{\"t\":\"2026-11-27T17:16Z\",\"value\":2507},{\"t\":\"2026-11-27T17:21Z\",\"value\":2586},{\"t\":\"2026-11-27T17:26Z\",\"value\":2718},{\"t\":\"2026-11-27T17:31Z\",\"value\":3448},{\"t\":\"2026-11-27T17:36Z\",\"value\":16265},{\"t\":\"2026-11-27T17:41Z\",\"value\":17072},{\"t\":\"2026-11-27T17:46Z\",\"value\":16321},{\"t\":\"2026-11-27T17:51Z\",\"value\":16616},{\"t\":\"2026-11-27T17:56Z\",\"value\":16654}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 5.268,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 7950,
+    "outputTokens": 185,
+    "costUsd": 0.00236
+   }
+  },
+  {
+   "t": 5.268,
+   "event": {
+    "type": "tool_call",
+    "step": 3,
+    "id": "call_PZriWGLc3dPzDqlsgHdzTFvL",
+    "name": "listDeploys",
+    "args": {
+     "hours": 6
+    }
+   }
+  },
+  {
+   "t": 5.268,
+   "event": {
+    "type": "tool_result",
+    "step": 3,
+    "id": "call_PZriWGLc3dPzDqlsgHdzTFvL",
+    "name": "listDeploys",
+    "ok": true,
+    "chars": 680,
+    "output": "{\"window\":\"last 6 h\",\"now\":\"2026-11-27T18:00Z\",\"deploys\":[{\"deployId\":\"d-4821\",\"service\":\"checkout-api\",\"version\":\"v1.4.2\",\"deployedAt\":\"2026-11-27T17:34Z\",\"minutesAgo\":26,\"author\":\"jlee\",\"summary\":\"Refactor cart pricing to support bundle discounts\",\"status\":\"succeeded\"},{\"deployId\":\"d-4815\",\"service\":\"checkout-web\",\"version\":\"v2.7.9\",\"deployedAt\":\"2026-11-27T16:49Z\",\"minutesAgo\":71,\"author\":\"rpatel\",\"summary\":\"Update footer links and copyright year\",\"status\":\"succeeded\"},{\"deployId\":\"d-4790\",\"service\":\"order-service\",\"version\":\"v3.9.1\",\"deployedAt\":\"2026-11-27T12:00Z\",\"minutesAgo\":360,\"author\":\"mgarcia\",\"summary\":\"Add CSV export for order history\",\"status\":\"succeeded\"}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 6.73,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 11955,
+    "outputTokens": 207,
+    "costUsd": 0.0034
+   }
+  },
+  {
+   "t": 6.73,
+   "event": {
+    "type": "tool_call",
+    "step": 4,
+    "id": "call_zeIyZ4568GhHPjXvDgo31Oqu",
+    "name": "getDeployDiff",
+    "args": {
+     "deployId": "d-4821"
+    }
+   }
+  },
+  {
+   "t": 6.73,
+   "event": {
+    "type": "tool_result",
+    "step": 4,
+    "id": "call_zeIyZ4568GhHPjXvDgo31Oqu",
+    "name": "getDeployDiff",
+    "ok": true,
+    "chars": 725,
+    "output": "{\"deployId\":\"d-4821\",\"service\":\"checkout-api\",\"version\":\"v1.4.2\",\"summary\":\"Refactor cart pricing to support bundle discounts\",\"diff\":\"--- a/src/Checkout.Api/Pricing/CartPricer.cs\\n+++ b/src/Checkout.Api/Pricing/CartPricer.cs\\n@@ -41,9 +41,14 @@ public class CartPricer {\\n-        var prices = await pricingClient.GetPricesAsync(cart.Items.Select(i => i.Sku));\\n-        return BuildQuote(cart, prices);\\n+        var prices = new List<Price>();\\n+        foreach (var item in cart.Items) {\\n+            // bundle discounts need per-item context\\n+            var price = await pricingClient.GetPriceAsync(item.Sku, item.BundleId);\\n+            prices.Add(price);\\n+        }\\n+        return BuildQuote(cart, prices);\\n\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 8.412,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 16185,
+    "outputTokens": 310,
+    "costUsd": 0.00467
+   }
+  },
+  {
+   "t": 8.412,
+   "event": {
+    "type": "tool_call",
+    "step": 5,
+    "id": "call_JCz2B3t1wg8XktwgAvHu4vJc",
+    "name": "getTraces",
+    "args": {
+     "service": "checkout-api",
+     "minDurationMs": 500,
+     "status": "error",
+     "limit": 3
+    }
+   }
+  },
+  {
+   "t": 8.413,
+   "event": {
+    "type": "tool_result",
+    "step": 5,
+    "id": "call_JCz2B3t1wg8XktwgAvHu4vJc",
+    "name": "getTraces",
+    "ok": true,
+    "chars": 111,
+    "output": "{\"service\":\"checkout-api\",\"traces\":[],\"hint\":\"No traces match. Lower minDurationMs or drop the status filter.\"}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 9.814,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 20487,
+    "outputTokens": 343,
+    "costUsd": 0.00581
+   }
+  },
+  {
+   "t": 9.814,
+   "event": {
+    "type": "tool_call",
+    "step": 6,
+    "id": "call_tuGWIXcZ3WG1Zgr0FnfrjeUz",
+    "name": "getTraces",
+    "args": {
+     "service": "checkout-api",
+     "minDurationMs": 500,
+     "status": null,
+     "limit": 3
+    }
+   }
+  },
+  {
+   "t": 9.815,
+   "event": {
+    "type": "tool_result",
+    "step": 6,
+    "id": "call_tuGWIXcZ3WG1Zgr0FnfrjeUz",
+    "name": "getTraces",
+    "ok": true,
+    "chars": 4062,
+    "output": "{\"service\":\"checkout-api\",\"matched\":6,\"traces\":[{\"traceId\":\"tr_21aec9d947\",\"t\":\"2026-11-27T17:38Z\",\"root\":\"checkout-web POST /checkout/price\",\"durationMs\":2528,\"status\":\"ok\",\"spans\":[{\"service\":\"checkout-web\",\"operation\":\"POST /checkout/price\",\"durationMs\":12,\"status\":\"ok\"},{\"service\":\"checkout-api\",\"operation\":\"POST /checkout/price\",\"durationMs\":25,\"status\":\"ok\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":283,\"status\":\"ok\",\"note\":\"sequential call 1/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":263,\"status\":\"ok\",\"note\":\"sequential call 2/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":270,\"status\":\"ok\",\"note\":\"sequential call 3/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":277,\"status\":\"ok\",\"note\":\"sequential call 4/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":294,\"status\":\"ok\",\"note\":\"sequential call 5/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":268,\"status\":\"ok\",\"note\":\"sequential call 6/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":290,\"status\":\"ok\",\"note\":\"sequential call 7/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":243,\"status\":\"ok\",\"note\":\"sequential call 8/9\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":293,\"status\":\"ok\",\"note\":\"sequential call 9/9\"}]},{\"traceId\":\"tr_e728479044\",\"t\":\"2026-11-27T17:44Z\",\"root\":\"checkout-web POST /checkout/price\",\"durationMs\":2017,\"status\":\"ok\",\"spans\":[{\"service\":\"checkout-web\",\"operation\":\"POST /checkout/price\",\"durationMs\":12,\"status\":\"ok\"},{\"service\":\"checkout-api\",\"operation\":\"POST /checkout/price\",\"durationMs\":25,\"status\":\"ok\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":268,\"status\":\"ok\",\"note\":\"sequential call 1/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":252,\"status\":\"ok\",\"note\":\"sequential call 2/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":229,\"status\":\"ok\",\"note\":\"sequential call 3/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":270,\"status\":\"ok\",\"note\":\"sequential call 4/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":234,\"status\":\"ok\",\"note\":\"sequential call 5/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":234,\"status\":\"ok\",\"note\":\"sequential call 6/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":230,\"status\":\"ok\",\"note\":\"sequential call 7/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":251,\"status\":\"ok\",\"note\":\"sequential call 8/8\"}]},{\"traceId\":\"tr_73125a26d7\",\"t\":\"2026-11-27T17:42Z\",\"root\":\"checkout-web POST /checkout/price\",\"durationMs\":1980,\"status\":\"ok\",\"spans\":[{\"service\":\"checkout-web\",\"operation\":\"POST /checkout/price\",\"durationMs\":12,\"status\":\"ok\"},{\"service\":\"checkout-api\",\"operation\":\"POST /checkout/price\",\"durationMs\":25,\"status\":\"ok\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":235,\"status\":\"ok\",\"note\":\"sequential call 1/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":244,\"status\":\"ok\",\"note\":\"sequential call 2/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":223,\"status\":\"ok\",\"note\":\"sequential call 3/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":224,\"status\":\"ok\",\"note\":\"sequential call 4/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":265,\"status\":\"ok\",\"note\":\"sequential call 5/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":227,\"status\":\"ok\",\"note\":\"sequential call 6/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":233,\"status\":\"ok\",\"note\":\"sequential call 7/8\"},{\"service\":\"pricing-service\",\"operation\":\"GET /prices/{sku}\",\"durationMs\":276,\"status\":\"ok\",\"note\":\"sequential call 8/8\"}]}]}",
+    "redactions": 0,
+    "injection": false
+   }
+  },
+  {
+   "t": 18.073,
+   "event": {
+    "type": "usage",
+    "model": "gpt-5-mini",
+    "inputTokens": 25957,
+    "outputTokens": 1388,
+    "costUsd": 0.00927
+   }
+  },
+  {
+   "t": 18.074,
+   "event": {
+    "type": "report",
+    "model": "gpt-5-mini",
+    "report": {
+     "severity": "SEV2",
+     "title": "Checkout API p95 latency regression caused by sequential per-item pricing calls introduced in deploy d-4821",
+     "summary": "Since ~2026-11-27T17:35Z the checkout-api p95 latency climbed from ~211ms to ~2360ms. A deploy d-4821 (checkout-api v1.4.2) at 2026-11-27T17:34Z introduced sequential per-item pricing calls which increased pricing-service traffic and added ~2s per checkout pricing request.",
+     "customerImpact": "Customers experience slow checkouts (p95 ~2.3s since 17:35Z). Success/error rates remain normal but latency exceeds SLO and may reduce conversions; no duplicate charges or failed payments observed.",
+     "rootCause": {
+      "category": "bad_deploy",
+      "culprit": "d-4821 checkout-api v1.4.2",
+      "description": "Deploy d-4821 replaced a single batch pricing call with sequential per-item GetPriceAsync calls (one HTTP call per item, per request). Traces show 8\u20139 sequential pricing requests each ~250ms, adding ~2s to request latency. Pricing-service request rate spiked ~545% starting 2026-11-27T17:35Z."
+     },
+     "evidence": [
+      {
+       "source": "metrics",
+       "detail": "checkout-api latency_p95_ms baseline 211ms -> latest 2360ms (change +1016%), change detected startedAt 2026-11-27T17:35Z; pricing-service requests_per_min baseline 2615 -> latest 16878 (+545%), change detected startedAt 2026-11-27T17:35Z."
+      },
+      {
+       "source": "deploys",
+       "detail": "Deploy d-4821 (checkout-api v1.4.2) deployedAt 2026-11-27T17:34Z by jlee with summary 'Refactor cart pricing to support bundle discounts'."
+      },
+      {
+       "source": "deploys",
+       "detail": "Deploy diff for d-4821 shows code change from pricingClient.GetPricesAsync(cart.Items.Select(...)) to per-item pricingClient.GetPriceAsync(item.Sku, item.BundleId) in CartPricer.cs (sequential loop)."
+      },
+      {
+       "source": "traces",
+       "detail": "Distributed traces at 2026-11-27T17:38-17:44Z show checkout-api performing 8\u20139 sequential pricing-service GET calls, each ~230\u2013294ms, totaling ~2s added: e.g. trace tr_21aec9d947 duration 2528ms with nine sequential pricing spans ~243\u2013294ms each."
+      }
+     ],
+     "recommendedActions": [
+      {
+       "action": "rollback_deploy",
+       "target": "d-4821 checkout-api v1.4.2",
+       "rationale": "This is the fastest safe mitigation: revert to prior behavior (batch GetPrices) to restore p95 latency and stop the pricing-service request storm. Timing matches deploy at 17:34Z and latency spike at 17:35Z.",
+       "risk": "low"
+      },
+      {
+       "action": "pause_rollout",
+       "target": "d-4821 checkout-api v1.4.2",
+       "rationale": "If a full rollback isn't immediately possible, pause any continuing rollout and route traffic to previous stable version instances.",
+       "risk": "low"
+      },
+      {
+       "action": "other",
+       "target": "checkout-api (code change)",
+       "rationale": "As a medium-term fix: update CartPricer to call pricing-service in parallel (fan-out with bounded concurrency) or restore batch GetPricesAsync; add request-level timeout and fail-open behavior for pricing to avoid blocking checkout.",
+       "risk": "medium"
+      },
+      {
+       "action": "enable_circuit_breaker",
+       "target": "checkout-api -> pricing-service",
+       "rationale": "Add or enable circuit breaker/backpressure to prevent cascading latency when pricing is slow and to return cached/best-effort prices under high latency.",
+       "risk": "low"
+      },
+      {
+       "action": "monitor",
+       "target": "pricing-service and checkout-api",
+       "rationale": "Continue monitoring latency, pricing requests_per_min, error rates and conversion metrics until p95 returns to baseline and traffic stabilizes.",
+       "risk": "low"
+      }
+     ],
+     "followUps": [
+      "After rollback, run load test with representative carts including bundles to validate batch vs per-item behavior.",
+      "Consider adding a unit/integration test preventing regressions that convert batch calls into sequential per-item calls for N items > 1.",
+      "Review deployment process for safer feature flags to gate behavioral changes."
+     ],
+     "suspiciousContent": [],
+     "confidence": 0.9
+    }
+   }
+  },
+  {
+   "t": 18.074,
+   "event": {
+    "type": "run_finished",
+    "model": "gpt-5-mini",
+    "steps": 7,
+    "toolCalls": 7,
+    "inputTokens": 25957,
+    "outputTokens": 1388,
+    "costUsd": 0.00927,
+    "latencyMs": 18061,
+    "stoppedReason": "report submitted",
+    "error": null
+   }
+  }
+ ]
+}
