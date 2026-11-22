@@ -51,7 +51,7 @@ def clientKey(request: Request):
     # X-Forwarded-For entry. Earlier entries are client-supplied and can be spoofed.
     forwarded=request.headers.get("x-forwarded-for", "")
     if forwarded:
-        return forwarded.split(",")[-1].strip()
+        return stripPort(forwarded.split(",")[-1].strip())
     return request.client.host if request.client else "unknown"
 
 
@@ -59,6 +59,15 @@ def scenarioOr404(scenarioId):
     if scenarioId not in SCENARIOS:
         raise HTTPException(404, f"Unknown scenario '{scenarioId}'")
     return SCENARIOS[scenarioId]
+
+
+def stripPort(address):
+    # Azure App Service forwards "1.2.3.4:51234"; the port changes per connection, the IP does not.
+    if address.startswith("["):
+        return address[1:address.find("]")] if "]" in address else address
+    if address.count(":")==1:
+        return address.split(":")[0]
+    return address
 
 
 @app.get("/")
