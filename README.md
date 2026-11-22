@@ -2,7 +2,7 @@
 
 An AI on-call agent for a checkout platform. When an alert fires, a model on **Azure OpenAI** investigates it the way an on-call engineer would: health overview, metrics, logs, traces, recent deploys, config and runbooks. It writes a structured incident report and recommends fixes, and **a person approves every change**.
 
-**Live demo:** `<your Container Apps URL>`
+**Live demo:** https://checkoutops-14f749.azurewebsites.net
 
 The platform is simulated. Six scenarios each hide one known fault, so every investigation can be scored against ground truth.
 
